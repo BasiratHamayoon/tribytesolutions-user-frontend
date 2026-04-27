@@ -50,12 +50,13 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
       className={`${outfit.variable} ${spaceGrotesk.variable} ${firaCode.variable}`}
     >
-      <body className="font-sans antialiased">
+      {/* suppressHydrationWarning on body prevents the script tag warning */}
+      <body className="font-sans antialiased" suppressHydrationWarning>
         <ReduxProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
-            enableSystem
+            enableSystem={false}
             disableTransitionOnChange={false}
           >
             <Navbar />

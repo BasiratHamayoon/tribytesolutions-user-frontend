@@ -1,92 +1,151 @@
 "use client";
-import ScrollReveal from "@/components/ui/ScrollReveal";
-import SectionHeading from "@/components/common/SectionHeading";
-import { techStack } from "@/data/techStack";
+import { useState, useEffect, useRef } from "react";
+import {
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiTailwindcss,
+  SiNodedotjs,
+  SiPython,
+  SiGo,
+  SiRust,
+  SiPostgresql,
+  SiMongodb,
+  SiRedis,
+  SiFirebase,
+  SiDocker,
+  SiKubernetes,
+  SiGithub,
+  SiVercel,
+  SiGraphql,
+  SiFlutter,
+  SiVuedotjs,
+  SiAngular,
+  SiDjango,
+  SiExpress,
+  SiMysql,
+  SiSvelte,
+} from "react-icons/si";
 
-const categoryColors = {
-  Frontend: "from-blue-500/20 to-blue-600/10 border-blue-500/20 text-blue-400",
-  Backend: "from-green-500/20 to-green-600/10 border-green-500/20 text-green-400",
-  Database: "from-purple-500/20 to-purple-600/10 border-purple-500/20 text-purple-400",
-  Cloud: "from-cyan-500/20 to-cyan-600/10 border-cyan-500/20 text-cyan-400",
-  DevOps: "from-orange-500/20 to-orange-600/10 border-orange-500/20 text-orange-400",
-  "AI/ML": "from-pink-500/20 to-pink-600/10 border-pink-500/20 text-pink-400",
-  Mobile: "from-yellow-500/20 to-yellow-600/10 border-yellow-500/20 text-yellow-400",
-  API: "from-red-500/20 to-red-600/10 border-red-500/20 text-red-400",
-};
+const techRow1 = [
+  { name: "React", icon: SiReact, color: "#61DAFB" },
+  { name: "Next.js", icon: SiNextdotjs, color: null },
+  { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+  { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" },
+  { name: "Vue.js", icon: SiVuedotjs, color: "#4FC08D" },
+  { name: "Angular", icon: SiAngular, color: "#DD0031" },
+  { name: "Svelte", icon: SiSvelte, color: "#FF3E00" },
+  { name: "Flutter", icon: SiFlutter, color: "#02569B" },
+  { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
+  { name: "Python", icon: SiPython, color: "#3776AB" },
+  { name: "Go", icon: SiGo, color: "#00ADD8" },
+  { name: "Rust", icon: SiRust, color: "#DEA584" },
+];
+
+const techRow2 = [
+  { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
+  { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+  { name: "Redis", icon: SiRedis, color: "#DC382D" },
+  { name: "MySQL", icon: SiMysql, color: "#4479A1" },
+  { name: "Firebase", icon: SiFirebase, color: "#FFCA28" },
+  { name: "GraphQL", icon: SiGraphql, color: "#E10098" },
+  { name: "Docker", icon: SiDocker, color: "#2496ED" },
+  { name: "Kubernetes", icon: SiKubernetes, color: "#326CE5" },
+  { name: "GitHub", icon: SiGithub, color: null },
+  { name: "Vercel", icon: SiVercel, color: null },
+  { name: "Django", icon: SiDjango, color: "#092E20" },
+  { name: "Express", icon: SiExpress, color: null },
+];
+
+function TechItem({ icon: Icon, name, color }) {
+  const isNeutral = !color;
+
+  return (
+    <div className="flex-shrink-0 mx-2 group cursor-default">
+      <div className="flex items-center gap-2.5 px-4 py-2 transition-all duration-300 group-hover:scale-105">
+        <Icon
+          className={`w-5 h-5 flex-shrink-0 transition-all duration-300 ${
+            isNeutral ? "text-gray-700 dark:text-white" : ""
+          }`}
+          style={color ? { color } : undefined}
+        />
+        <span className="text-[12px] font-bold text-gray-700 dark:text-gray-300 group-hover:text-orange-500 transition-colors duration-300 whitespace-nowrap tracking-wide">
+          {name}
+        </span>
+      </div>
+    </div>
+  );
+}
 
 export default function TechStackSection() {
+  const [inView, setInView] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setInView(true);
+      },
+      { threshold: 0.2 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const t = (delay) => ({
+    transition: `all 0.8s cubic-bezier(.22,1,.36,1) ${delay}ms`,
+    opacity: inView ? 1 : 0,
+    transform: inView ? "translateY(0)" : "translateY(20px)",
+  });
+
   return (
-    <section className="relative py-24 overflow-hidden">
-      <div className="absolute inset-0 grid-pattern opacity-20" />
+    <section
+      ref={sectionRef}
+      className="relative w-full bg-gray-50/50 dark:bg-[#0c0c0f] py-14 overflow-hidden border-t border-gray-100 dark:border-white/[0.04] border-b border-gray-100 dark:border-b-white/[0.04]"
+    >
+      {/* Top accent */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-orange-500/15 to-transparent" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          subtitle="Tech Stack"
-          title="Technologies We Master"
-          description="We use the latest and most reliable technologies to build robust, scalable solutions."
-        />
+      {/* Label */}
+      <div style={t(0)} className="text-center mb-8">
+        <div className="inline-flex items-center gap-2">
+          <span className="w-5 h-[1.5px] bg-orange-500 rounded-full" />
+          <span className="text-[9px] font-extrabold text-gray-500 dark:text-gray-400 tracking-[0.25em] uppercase">
+            Technologies we master
+          </span>
+          <span className="w-5 h-[1.5px] bg-orange-500 rounded-full" />
+        </div>
+      </div>
 
-        {/* Scrolling Tech Marquee */}
-        <div className="relative mb-16 overflow-hidden">
-          <div className="flex animate-[scroll_30s_linear_infinite] gap-6">
-            {[...techStack, ...techStack].map((tech, index) => (
-              <div
-                key={index}
-                className={`flex-shrink-0 px-6 py-3 rounded-xl bg-gradient-to-r ${
-                  categoryColors[tech.category]?.split(" ").slice(0, 2).join(" ") || "from-gray-500/20 to-gray-600/10"
-                } border ${
-                  categoryColors[tech.category]?.split(" ")[2] || "border-gray-500/20"
-                } transition-all duration-300 hover:scale-105 cursor-default`}
-              >
-                <span className="text-sm font-semibold whitespace-nowrap">
-                  {tech.name}
-                </span>
-              </div>
-            ))}
-          </div>
+      {/* Marquee Rows */}
+      <div className="relative overflow-hidden" style={t(150)}>
+        {/* Row 1 → left to right */}
+        <div className="marquee-track mb-2">
+          {[...techRow1, ...techRow1, ...techRow1].map((tech, index) => (
+            <TechItem
+              key={`r1-${index}`}
+              icon={tech.icon}
+              name={tech.name}
+              color={tech.color}
+            />
+          ))}
         </div>
 
-        {/* Categorized Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {Object.entries(
-            techStack.reduce((acc, tech) => {
-              if (!acc[tech.category]) acc[tech.category] = [];
-              acc[tech.category].push(tech.name);
-              return acc;
-            }, {})
-          ).map(([category, techs], index) => (
-            <ScrollReveal key={category} direction="up" delay={index * 80}>
-              <div className="p-6 rounded-2xl bg-card border border-border hover:border-tribyte-orange/20 transition-all duration-500 card-3d">
-                <h4 className="text-sm font-semibold uppercase tracking-wider text-tribyte-orange mb-4">
-                  {category}
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {techs.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1.5 text-sm rounded-lg bg-muted text-muted-foreground hover:text-tribyte-orange hover:bg-tribyte-orange/5 transition-colors cursor-default font-mono"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </ScrollReveal>
+        {/* Row 2 → right to left */}
+        <div className="marquee-track-reverse">
+          {[...techRow2, ...techRow2, ...techRow2].map((tech, index) => (
+            <TechItem
+              key={`r2-${index}`}
+              icon={tech.icon}
+              name={tech.name}
+              color={tech.color}
+            />
           ))}
         </div>
       </div>
 
-      {/* CSS for marquee */}
-      <style jsx>{`
-        @keyframes scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-      `}</style>
+      {/* Bottom accent */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-orange-500/15 to-transparent" />
     </section>
   );
 }

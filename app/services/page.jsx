@@ -1,14 +1,26 @@
+import ServiceProcess from "@/components/sections/ServiceProcess";
+import ServicesCTA from "@/components/sections/ServicesCTA";
+import ServicesDetailed from "@/components/sections/ServicesDetailed";
+import ServicesHero from "@/components/sections/ServicesHero";
+import ServicesOverview from "@/components/sections/ServicesOverview";
+import ServicesTech from "@/components/sections/ServicesTech";
+
+
+export const metadata = {
+  title: "Our Services - TriByte Solutions",
+  description:
+    "Explore our comprehensive IT services including web development, mobile apps, cloud solutions, AI/ML, DevOps, and more.",
+};
+
 export default function ServicesPage() {
-    return (
-      <main className="min-h-screen pt-28 pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-6">
-            Our <span className="text-tribyte-orange">Services</span>
-          </h1>
-          <p className="text-muted-foreground text-lg max-w-2xl">
-            This page is under development. Full content coming soon.
-          </p>
-        </div>
-      </main>
-    );
-  }
+  return (
+    <main className="relative min-h-screen overflow-hidden">
+      <ServicesHero />
+      <ServicesOverview />
+      <ServicesDetailed />
+      <ServiceProcess />
+      <ServicesTech />
+      <ServicesCTA />
+    </main>
+  );
+}

@@ -1,128 +1,110 @@
 "use client";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { FiX, FiArrowRight } from "react-icons/fi";
+import { FiX, FiArrowRight, FiArrowUpRight } from "react-icons/fi";
 import Link from "next/link";
 import Image from "next/image";
 import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Services", href: "/services" },
-  { name: "Portfolio", href: "/portfolio" },
-  { name: "Careers", href: "/careers" },
-  { name: "Blog", href: "/blog" },
-  { name: "Contact", href: "/contact" },
+  { name: "Home", href: "#home" },
+  { name: "About us", href: "#about" },
+  { name: "Services", href: "#services" },
+  { name: "Case Studies", href: "#portfolio" },
+  { name: "How it Works", href: "#how-it-works" },
+  { name: "Hire", href: "#hire" },
+  { name: "Contact", href: "#contact" },
 ];
 
 export default function MobileMenu({ isOpen, onClose }) {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    document.body.style.overflow = isOpen ? "hidden" : "unset";
     return () => {
       document.body.style.overflow = "unset";
     };
   }, [isOpen]);
 
-  // Auto close on route change
   useEffect(() => {
     onClose();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   return (
     <>
-      {/* Overlay */}
       <div
-        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300 lg:hidden ${
+        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-[110] transition-opacity duration-400 lg:hidden ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={onClose}
       />
 
-      {/* Panel */}
       <div
-        className={`fixed top-0 right-0 h-full w-[85%] max-w-sm bg-background border-l border-border z-50 transition-transform duration-500 ease-out lg:hidden ${
+        className={`fixed top-0 right-0 h-full w-[82%] max-w-[360px] z-[120] transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] lg:hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex flex-col h-full">
-          {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-border">
-            <Link href="/" onClick={onClose}>
+        <div className="h-full bg-white/95 dark:bg-[#0c0c0f]/95 backdrop-blur-2xl border-l border-gray-200/50 dark:border-white/[0.06] flex flex-col">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 dark:border-white/[0.06]">
+            <Link href="/" onClick={onClose} className="cursor-pointer">
               <Image
                 src="/logo.png"
                 alt="TriByte Solutions"
-                width={120}
-                height={34}
-                className="object-contain h-8 w-auto"
+                width={130}
+                height={38}
+                className="object-contain h-9 w-auto"
               />
             </Link>
             <button
               onClick={onClose}
-              className="p-2 rounded-xl bg-muted hover:bg-tribyte-orange/10 transition-colors"
+              className="p-2 rounded-md bg-gray-100 dark:bg-white/[0.06] hover:bg-red-50 dark:hover:bg-red-500/10 hover:text-red-500 transition-all duration-300 cursor-pointer"
             >
-              <FiX className="w-6 h-6" />
+              <FiX className="w-5 h-5" />
             </button>
           </div>
 
-          {/* Nav Links */}
-          <nav className="flex-1 overflow-y-auto py-6 px-6">
-            <ul className="space-y-1">
-              {navLinks.map((link, index) => {
-                const isActive = pathname === link.href;
-                return (
-                  <li
-                    key={link.name}
-                    className={`transition-all duration-300 ${
-                      isOpen
-                        ? "opacity-100 translate-x-0"
-                        : "opacity-0 translate-x-8"
-                    }`}
-                    style={{ transitionDelay: `${index * 50 + 100}ms` }}
+          <nav className="flex-1 overflow-y-auto py-4 px-4">
+            <ul className="space-y-0.5">
+              {navLinks.map((link, index) => (
+                <li
+                  key={link.name}
+                  className={`transition-all duration-500 ${
+                    isOpen
+                      ? "opacity-100 translate-x-0"
+                      : "opacity-0 translate-x-8"
+                  }`}
+                  style={{ transitionDelay: `${index * 50 + 100}ms` }}
+                >
+                  <Link
+                    href={link.href}
+                    onClick={onClose}
+                    className="flex items-center justify-between py-3 px-4 rounded-md text-[14px] font-semibold text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-500/[0.06] transition-all duration-300 group active:scale-[0.98] cursor-pointer"
                   >
-                    <Link
-                      href={link.href}
-                      onClick={onClose}
-                      className={`flex items-center justify-between py-3 px-4 rounded-xl text-lg font-medium transition-all duration-300 group ${
-                        isActive
-                          ? "bg-tribyte-orange text-white"
-                          : "text-foreground hover:text-tribyte-orange hover:bg-tribyte-orange/5"
-                      }`}
-                    >
-                      <span>{link.name}</span>
-                      <FiArrowRight
-                        className={`w-4 h-4 transition-all duration-300 ${
-                          isActive
-                            ? "opacity-100 translate-x-0"
-                            : "opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"
-                        }`}
-                      />
-                    </Link>
-                  </li>
-                );
-              })}
+                    <span>{link.name}</span>
+                    <FiArrowUpRight className="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-orange-500" />
+                  </Link>
+                </li>
+              ))}
             </ul>
           </nav>
 
-          {/* Footer */}
-          <div className="p-6 border-t border-border space-y-4">
+          <div className="px-5 py-5 border-t border-gray-100 dark:border-white/[0.06] space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-muted-foreground">Theme</span>
-              <ThemeToggle />
+              <span className="text-[11px] font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
+                Theme
+              </span>
+              <div className="scale-[0.85] cursor-pointer">
+                <ThemeToggle />
+              </div>
             </div>
             <Link
-              href="/contact"
+              href="#contact"
               onClick={onClose}
-              className="flex items-center justify-center gap-2 w-full py-3 px-6 rounded-xl bg-tribyte-orange text-white font-semibold hover:bg-tribyte-orange-dark transition-all duration-300"
+              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-[4px] bg-gray-900 dark:bg-white text-white dark:text-black font-bold text-[13px] hover:bg-gray-800 dark:hover:bg-gray-100 transition-all duration-300 active:scale-[0.97] cursor-pointer"
             >
-              Get Started
-              <FiArrowRight className="w-4 h-4" />
+              Start a Project
+              <FiArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>
