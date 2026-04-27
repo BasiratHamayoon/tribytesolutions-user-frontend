@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import ParticleBackground from "@/components/ui/ParticleBackground";
 
 const steps = [
   {
@@ -56,7 +57,6 @@ export default function ServiceProcess() {
     return () => observer.disconnect();
   }, []);
 
-  // Auto-cycle through steps
   useEffect(() => {
     if (!inView) return;
     const interval = setInterval(() => {
@@ -77,7 +77,10 @@ export default function ServiceProcess() {
       id="how-it-works"
       className="relative w-full bg-gray-50 dark:bg-[#0c0c0f] py-20 lg:py-28 overflow-hidden"
     >
-      {/* BG */}
+      {/* BG Animation */}
+      <ParticleBackground />
+
+      {/* BG dot pattern */}
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute inset-0 opacity-[0.015] dark:opacity-[0.025]"
@@ -90,7 +93,6 @@ export default function ServiceProcess() {
       </div>
 
       <div className="relative z-10 max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-16">
-        {/* Header */}
         <div className="text-center mb-16">
           <div style={t(0)}>
             <div className="inline-flex items-center gap-2 mb-4">
@@ -134,15 +136,11 @@ export default function ServiceProcess() {
           </div>
         </div>
 
-        {/* ══════ Bus Topology Diagram ══════ */}
         <div style={t(450)}>
-          {/* ── Desktop: Horizontal Bus ── */}
+          {/* Desktop: Horizontal Bus */}
           <div className="hidden lg:block">
-            {/* Main horizontal bus line */}
             <div className="relative">
-              {/* The bus backbone */}
               <div className="absolute top-[28px] left-0 right-0 h-[2px] bg-gray-200 dark:bg-white/[0.06]">
-                {/* Animated fill */}
                 <div
                   className="h-full bg-orange-500 transition-all duration-700 ease-out"
                   style={{
@@ -151,7 +149,6 @@ export default function ServiceProcess() {
                 />
               </div>
 
-              {/* Nodes on the bus */}
               <div className="relative flex items-start justify-between">
                 {steps.map((step, index) => {
                   const isActive = index === activeStep;
@@ -164,13 +161,10 @@ export default function ServiceProcess() {
                       style={{ width: `${100 / steps.length}%` }}
                       onClick={() => setActiveStep(index)}
                     >
-                      {/* Node dot */}
                       <div className="relative z-10 mb-4">
-                        {/* Pulse ring on active */}
                         {isActive && (
                           <div className="absolute -inset-2 rounded-full bg-orange-500/20 animate-ping" />
                         )}
-                        {/* Outer ring */}
                         <div
                           className={`w-14 h-14 flex items-center justify-center border-2 transition-all duration-500 ${
                             isActive
@@ -195,7 +189,6 @@ export default function ServiceProcess() {
                         </div>
                       </div>
 
-                      {/* Vertical connector line */}
                       <div
                         className={`w-[1.5px] h-5 transition-all duration-500 ${
                           isActive
@@ -206,7 +199,6 @@ export default function ServiceProcess() {
                         }`}
                       />
 
-                      {/* Content card */}
                       <div
                         className={`mt-2 p-4 w-full max-w-[170px] border transition-all duration-500 ${
                           isActive
@@ -215,11 +207,9 @@ export default function ServiceProcess() {
                         }`}
                         style={{ borderRadius: "4px" }}
                       >
-                        {/* Active indicator */}
                         {isActive && (
                           <div className="absolute top-0 left-0 right-0 h-[2px] bg-orange-500" />
                         )}
-
                         <h3
                           className={`font-heading font-bold text-[13px] mb-1.5 tracking-[-0.01em] transition-colors duration-300 ${
                             isActive
@@ -246,10 +236,9 @@ export default function ServiceProcess() {
             </div>
           </div>
 
-          {/* ── Mobile/Tablet: Vertical Bus ── */}
+          {/* Mobile: Vertical Bus */}
           <div className="lg:hidden">
             <div className="relative flex">
-              {/* Vertical bus backbone */}
               <div className="absolute left-[27px] top-0 bottom-0 w-[2px] bg-gray-200 dark:bg-white/[0.06]">
                 <div
                   className="w-full bg-orange-500 transition-all duration-700 ease-out"
@@ -259,7 +248,6 @@ export default function ServiceProcess() {
                 />
               </div>
 
-              {/* Nodes */}
               <div className="flex flex-col gap-3 w-full">
                 {steps.map((step, index) => {
                   const isActive = index === activeStep;
@@ -271,7 +259,6 @@ export default function ServiceProcess() {
                       className="flex items-start gap-4 cursor-pointer group"
                       onClick={() => setActiveStep(index)}
                     >
-                      {/* Node dot */}
                       <div className="relative z-10 flex-shrink-0">
                         {isActive && (
                           <div className="absolute -inset-1.5 rounded-full bg-orange-500/20 animate-ping" />
@@ -300,9 +287,7 @@ export default function ServiceProcess() {
                         </div>
                       </div>
 
-                      {/* Horizontal connector + card */}
                       <div className="flex items-start gap-3 flex-1 pt-1">
-                        {/* Horizontal line */}
                         <div
                           className={`w-6 h-[1.5px] mt-[12px] flex-shrink-0 transition-all duration-500 ${
                             isActive
@@ -313,7 +298,6 @@ export default function ServiceProcess() {
                           }`}
                         />
 
-                        {/* Content card */}
                         <div
                           className={`flex-1 p-4 border transition-all duration-500 ${
                             isActive
@@ -325,7 +309,6 @@ export default function ServiceProcess() {
                           {isActive && (
                             <div className="absolute top-0 left-0 right-0 h-[2px] bg-orange-500" />
                           )}
-
                           <h3
                             className={`font-heading font-bold text-[14px] mb-1 tracking-[-0.01em] transition-colors duration-300 ${
                               isActive
@@ -353,7 +336,7 @@ export default function ServiceProcess() {
             </div>
           </div>
 
-          {/* ── Bottom: Step counter ── */}
+          {/* Bottom counter */}
           <div className="mt-10 flex items-center justify-center gap-4">
             <div className="flex items-center gap-1.5">
               {steps.map((_, i) => (

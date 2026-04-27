@@ -1,14 +1,14 @@
 
-import AboutSection from "@/components/sections/AboutSection";
-import StatsSection from "@/components/sections/StatsSection";
-import PortfolioSection from "@/components/sections/PortfolioSection";
-import TechStackSection from "@/components/sections/TechStackSection";
-import PartnersSection from "@/components/sections/PartnersSection";
-import ContactSection from "@/components/sections/ContactSection";
+import AboutSection from "@/components/sections/home/AboutSection";
+import StatsSection from "@/components/sections/home/StatsSection";
+import PortfolioSection from "@/components/sections/home/PortfolioSection";
+import TechStackSection from "@/components/sections/home/TechStackSection";
+import PartnersSection from "@/components/sections/home/PartnersSection";
+import ContactSection from "@/components/sections/home/ContactSection";
 import ParticleBackground from "@/components/ui/ParticleBackground";
-import HeroSection from "@/components/sections/HeroSection";
-import ServicesSection from "@/components/sections/ServicesSection";
-import TeamSection from "@/components/sections/TeamSection";
+import HeroSection from "@/components/sections/home/HeroSection";
+import ServicesSection from "@/components/sections/home/ServicesSection";
+import TeamSection from "@/components/sections/home/TeamSection";
 
 export default function Home() {
   return (

@@ -1,9 +1,9 @@
-import ServiceProcess from "@/components/sections/ServiceProcess";
-import ServicesCTA from "@/components/sections/ServicesCTA";
-import ServicesDetailed from "@/components/sections/ServicesDetailed";
-import ServicesHero from "@/components/sections/ServicesHero";
-import ServicesOverview from "@/components/sections/ServicesOverview";
-import ServicesTech from "@/components/sections/ServicesTech";
+import ServiceProcess from "@/components/sections/services/ServiceProcess";
+import ServicesCTA from "@/components/sections/services/ServicesCTA";
+import ServicesDetailed from "@/components/sections/services/ServicesDetailed";
+import ServicesHero from "@/components/sections/services/ServicesHero";
+import ServicesOverview from "@/components/sections/services/ServicesOverview";
+import ServicesTech from "@/components/sections/services/ServicesTech";
 
 
 export const metadata = {

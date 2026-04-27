@@ -11,17 +11,23 @@ const slides = [
 ];
 
 function Particles() {
-  const particles = useRef(
-    Array.from({ length: 25 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 3 + 1,
-      dur: Math.random() * 15 + 10,
-      delay: Math.random() * 8,
-      isOrange: i % 5 === 0,
-    }))
-  ).current;
+  const [particles, setParticles] = useState([]);
+
+  useEffect(() => {
+    setParticles(
+      Array.from({ length: 25 }, (_, i) => ({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 3 + 1,
+        dur: Math.random() * 15 + 10,
+        delay: Math.random() * 8,
+        isOrange: i % 5 === 0,
+      }))
+    );
+  }, []);
+
+  if (particles.length === 0) return null;
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-[3]">
@@ -95,12 +101,14 @@ export default function HeroSection() {
     transform: mounted ? "translateY(0)" : "translateY(36px)",
   });
 
+  const headingWords1 = ["Great", "Product", "is"];
+  const headingWords2 = ["built", "by", "great", "teams"];
+
   return (
     <section
       id="home"
       className="relative w-full h-screen min-h-[600px] max-h-[1000px] overflow-hidden"
     >
-      {/* ═══════ BG IMAGE CAROUSEL ═══════ */}
       <div className="absolute inset-0 z-0">
         {slides.map((slide, index) => (
           <div
@@ -124,7 +132,6 @@ export default function HeroSection() {
         ))}
       </div>
 
-      {/* ═══════ OVERLAYS ═══════ */}
       <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/75 via-black/55 to-black/35" />
       <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black/60 via-transparent to-black/30" />
 
@@ -145,11 +152,10 @@ export default function HeroSection() {
 
       <Particles />
 
-      {/* ═══════ MAIN CONTENT ═══════ */}
       <div className="relative z-10 h-full flex items-center justify-center pt-16">
         <div className="w-full max-w-[1320px] mx-auto px-5 sm:px-8 lg:px-12">
           <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
-            {/* Eyebrow */}
+
             <div style={t(100)}>
               <div className="inline-flex items-center gap-2.5 mb-4">
                 <span className="w-7 h-[2px] bg-orange-500 rounded-full" />
@@ -160,40 +166,83 @@ export default function HeroSection() {
               </div>
             </div>
 
-            {/* Heading */}
             <div style={t(250)}>
               <h1 className="font-heading font-bold text-white leading-[1.08] tracking-[-0.03em] mb-4">
                 <span className="block text-[2.4rem] sm:text-[3rem] md:text-[3.5rem] lg:text-[4rem]">
-                  Great <span className="text-orange-500">Product</span> is
-                </span>
-                <span className="block text-[2.4rem] sm:text-[3rem] md:text-[3.5rem] lg:text-[4rem] mt-0.5">
-                  built by great{" "}
-                  <span className="relative inline-block text-orange-500">
-                    teams
-                    <svg
-                      className="absolute -bottom-1 left-0 w-full"
-                      height="6"
-                      viewBox="0 0 200 6"
-                      fill="none"
+                  {headingWords1.map((word, i) => (
+                    <span
+                      key={i}
+                      className={`inline-block mr-[0.25em] ${
+                        word === "Product" ? "text-orange-500" : "text-white"
+                      }`}
+                      style={{
+                        animation: mounted
+                          ? `heroLetterFloat ${3 + i * 0.4}s ease-in-out ${i * 0.15}s infinite`
+                          : "none",
+                      }}
                     >
-                      <path
-                        d="M1 4.5C40 1 80 1 100 3C120 5 160 2 199 4"
-                        stroke="#ff6b00"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeDasharray="200"
+                      {word}
+                    </span>
+                  ))}
+                </span>
+
+                <span className="block text-[2.4rem] sm:text-[3rem] md:text-[3.5rem] lg:text-[4rem] mt-0.5">
+                  {headingWords2.map((word, i) => {
+                    const isTeams = word === "teams";
+                    return (
+                      <span
+                        key={i}
+                        className={`inline-block mr-[0.25em] relative ${
+                          isTeams ? "text-orange-500" : "text-white"
+                        }`}
                         style={{
-                          strokeDashoffset: mounted ? 0 : 200,
-                          transition: "stroke-dashoffset 1.4s ease-out 1.2s",
+                          animation: mounted
+                            ? `heroLetterFloat ${3 + (i + 3) * 0.4}s ease-in-out ${(i + 3) * 0.15}s infinite`
+                            : "none",
                         }}
-                      />
-                    </svg>
-                  </span>
+                      >
+                        {word}
+                        {isTeams && (
+                          <svg
+                            className="absolute -bottom-1 left-0 w-full"
+                            height="6"
+                            viewBox="0 0 200 6"
+                            fill="none"
+                          >
+                            <path
+                              d="M1 4.5C40 1 80 1 100 3C120 5 160 2 199 4"
+                              stroke="#ff6b00"
+                              strokeWidth="2.5"
+                              strokeLinecap="round"
+                              strokeDasharray="200"
+                              style={{
+                                strokeDashoffset: mounted ? 0 : 200,
+                                transition:
+                                  "stroke-dashoffset 1.4s ease-out 1.2s",
+                              }}
+                            />
+                          </svg>
+                        )}
+                        {isTeams && (
+                          <span
+                            className="absolute inset-0 text-orange-500 pointer-events-none select-none blur-[10px] opacity-0"
+                            aria-hidden="true"
+                            style={{
+                              animation: mounted
+                                ? "heroGlowPulse 2.5s ease-in-out infinite"
+                                : "none",
+                            }}
+                          >
+                            {word}
+                          </span>
+                        )}
+                      </span>
+                    );
+                  })}
                 </span>
               </h1>
             </div>
 
-            {/* Description */}
             <div style={t(400)}>
               <p className="text-[14px] sm:text-[15px] text-white/50 leading-[1.7] max-w-[480px] mx-auto mb-6">
                 We help build and manage a team of world-class developers to
@@ -201,7 +250,6 @@ export default function HeroSection() {
               </p>
             </div>
 
-            {/* Buttons */}
             <div style={t(540)}>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5">
                 <Link
@@ -221,7 +269,6 @@ export default function HeroSection() {
               </div>
             </div>
 
-            {/* Trust avatars */}
             <div style={t(680)}>
               <div className="mt-6 flex items-center justify-center gap-2.5">
                 <div className="flex -space-x-2">
@@ -247,7 +294,6 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* ═══════ CAROUSEL CONTROLS ═══════ */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
         {slides.map((_, index) => (
           <button

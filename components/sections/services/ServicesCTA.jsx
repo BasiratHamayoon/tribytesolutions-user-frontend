@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { FiArrowRight } from "react-icons/fi";
 import Link from "next/link";
 import Image from "next/image";
+import ParticleBackground from "@/components/ui/ParticleBackground";
 
 export default function ServicesCTA() {
   const [inView, setInView] = useState(false);
@@ -30,12 +31,13 @@ export default function ServicesCTA() {
       ref={ref}
       className="relative w-full bg-gray-50 dark:bg-[#0c0c0f] py-20 overflow-hidden"
     >
+      <ParticleBackground />
+
       <div className="relative z-10 max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-16">
         <div
           className="relative p-10 sm:p-14 border border-white/[0.08] overflow-hidden text-center"
           style={{ borderRadius: "4px", ...t(0) }}
         >
-          {/* Background image */}
           <div className="absolute inset-0 z-0">
             <Image
               src="/slides/7.jpg"
@@ -45,12 +47,10 @@ export default function ServicesCTA() {
               sizes="100vw"
               priority={false}
             />
-            {/* Lighter overlays — reduced from 70% to 45% */}
             <div className="absolute inset-0 bg-black/45" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/35 to-black/45" />
           </div>
 
-          {/* BG accent */}
           <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-orange-500/[0.12] blur-3xl pointer-events-none z-[1]" />
           <div className="absolute -bottom-20 -left-20 w-60 h-60 rounded-full bg-orange-500/[0.08] blur-3xl pointer-events-none z-[1]" />
 
