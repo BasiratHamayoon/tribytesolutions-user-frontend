@@ -10,11 +10,11 @@ import { FiMenu } from "react-icons/fi";
 
 const navLinks = [
   { name: "Home", href: "/", anchor: null },
-  { name: "About us", href: "/#about", anchor: "about" },
+  { name: "About us", href: "/about", anchor: null },
   { name: "Services", href: "/services", anchor: null },
-  { name: "Case Studies", href: "/#portfolio", anchor: "portfolio" },
-  { name: "How it Works", href: "/#how-it-works", anchor: "how-it-works" },
-  { name: "Hire", href: "/#hire", anchor: "hire" },
+  { name: "Portfolio", href: "/portfolio", anchor: null },
+  { name: "Careers", href: "/careers", anchor: null },
+  { name: "Team", href: "/team", anchor: null },
 ];
 
 export default function Navbar() {
@@ -25,6 +25,11 @@ export default function Navbar() {
 
   const isServicesPage = pathname === "/services";
   const isHomePage = pathname === "/";
+  const isAboutPage = pathname === "/about";
+  const isCareersPage = pathname === "/careers";
+  const isTeamPage = pathname === "/team";
+  const isPortfolioPage = pathname === "/portfolio";
+
 
   useEffect(() => {
     if (!isHomePage) return;
@@ -52,6 +57,10 @@ export default function Navbar() {
 
   const isLinkActive = (link) => {
     if (isServicesPage && link.href === "/services") return true;
+    if (isAboutPage && link.href === "/about") return true;
+    if (isCareersPage && link.href === "/careers") return true;
+    if (isTeamPage && link.href === "/team") return true;
+    if (isPortfolioPage && link.href === "/portfolio") return true;
     if (isHomePage) {
       if (link.href === "/" && activeSection === "home") return true;
       if (link.anchor && activeSection === link.anchor) return true;

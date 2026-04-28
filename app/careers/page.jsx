@@ -1,14 +1,24 @@
+import CareersCTA from "@/components/sections/careers/CareersCTA";
+import CareersHero from "@/components/sections/careers/CareersHero";
+import CareersOpenings from "@/components/sections/careers/CareersOpenings";
+import CareersPerks from "@/components/sections/careers/CareersPerks";
+import CareersProcess from "@/components/sections/careers/CareersProcess";
+
+
+export const metadata = {
+  title: "Careers - TriByte Solutions",
+  description:
+    "Join TriByte Solutions — explore open roles, perks, culture, and build the future of technology with our world-class team.",
+};
+
 export default function CareersPage() {
-    return (
-      <main className="min-h-screen pt-28 pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-6">
-            Join <span className="text-tribyte-orange">Our Team</span>
-          </h1>
-          <p className="text-muted-foreground text-lg max-w-2xl">
-            This page is under development. Full content coming soon.
-          </p>
-        </div>
-      </main>
-    );
-  }
+  return (
+    <main className="relative min-h-screen overflow-hidden">
+      <CareersHero />
+      <CareersPerks />
+      <CareersOpenings />
+      <CareersProcess />
+      <CareersCTA />
+    </main>
+  );
+}

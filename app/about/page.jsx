@@ -1,14 +1,30 @@
+import AboutCTA from "@/components/sections/about/AboutCTA";
+import AboutHero from "@/components/sections/about/AboutHero";
+import AboutMission from "@/components/sections/about/AboutMission";
+import AboutStats from "@/components/sections/about/AboutStats";
+import AboutStory from "@/components/sections/about/AboutStory";
+import AboutTeam from "@/components/sections/about/AboutTeam";
+import AboutTimeline from "@/components/sections/about/AboutTimeline";
+import AboutValues from "@/components/sections/about/AboutValues";
+
+
+export const metadata = {
+  title: "About Us - TriByte Solutions",
+  description:
+    "Learn about TriByte Solutions — our story, mission, values, and the talented team behind your next digital product.",
+};
+
 export default function AboutPage() {
-    return (
-      <main className="min-h-screen pt-28 pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-6">
-            About <span className="text-tribyte-orange">TriByte Solutions</span>
-          </h1>
-          <p className="text-muted-foreground text-lg max-w-2xl">
-            This page is under development. Full content coming soon.
-          </p>
-        </div>
-      </main>
-    );
-  }
+  return (
+    <main className="relative min-h-screen overflow-hidden">
+      <AboutHero />
+      <AboutStory />
+      <AboutMission />
+      <AboutValues />
+      <AboutStats />
+      <AboutTeam />
+      <AboutTimeline />
+      <AboutCTA />
+    </main>
+  );
+}

@@ -1,14 +1,26 @@
+import PortfolioCTA from "@/components/sections/portfolio/PortfolioCTA";
+import PortfolioHero from "@/components/sections/portfolio/PortfolioHero";
+import PortfolioProcess from "@/components/sections/portfolio/PortfolioProcess";
+import PortfolioShowcase from "@/components/sections/portfolio/PortfolioShowcase";
+import PortfolioStats from "@/components/sections/portfolio/PortfolioStats";
+import PortfolioTestimonials from "@/components/sections/portfolio/PortfolioTestimonials";
+
+
+export const metadata = {
+  title: "Portfolio - TriByte Solutions",
+  description:
+    "Explore our portfolio of successful projects — web apps, mobile apps, cloud solutions, and AI products built for clients worldwide.",
+};
+
 export default function PortfolioPage() {
-    return (
-      <main className="min-h-screen pt-28 pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-6">
-            Our <span className="text-tribyte-orange">Portfolio</span>
-          </h1>
-          <p className="text-muted-foreground text-lg max-w-2xl">
-            This page is under development. Full content coming soon.
-          </p>
-        </div>
-      </main>
-    );
-  }
+  return (
+    <main className="relative min-h-screen overflow-hidden">
+      <PortfolioHero />
+      <PortfolioShowcase />
+      <PortfolioStats />
+      <PortfolioProcess />
+      <PortfolioTestimonials />
+      <PortfolioCTA />
+    </main>
+  );
+}
