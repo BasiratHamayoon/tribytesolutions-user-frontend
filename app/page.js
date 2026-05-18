@@ -9,6 +9,7 @@ import ParticleBackground from "@/components/ui/ParticleBackground";
 import HeroSection from "@/components/sections/home/HeroSection";
 import ServicesSection from "@/components/sections/home/ServicesSection";
 import TeamSection from "@/components/sections/home/TeamSection";
+import HomeJobsSection from "@/components/sections/home/HomeJobsSection";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <AboutSection />
       <StatsSection />
       <PortfolioSection />
+      <HomeJobsSection />
       <TeamSection />
       <TechStackSection />
       <ContactSection />

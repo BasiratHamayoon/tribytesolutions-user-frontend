@@ -5,7 +5,6 @@ import PortfolioShowcase from "@/components/sections/portfolio/PortfolioShowcase
 import PortfolioStats from "@/components/sections/portfolio/PortfolioStats";
 import PortfolioTestimonials from "@/components/sections/portfolio/PortfolioTestimonials";
 
-
 export const metadata = {
   title: "Portfolio - TriByte Solutions",
   description:

@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FiArrowRight, FiExternalLink } from "react-icons/fi";
+import { FiArrowRight, FiExternalLink, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const projects = [
   {
@@ -53,13 +53,11 @@ function ProjectCard({ project, index, inView }) {
       style={cardStyle}
       className="group relative flex flex-col lg:flex-row overflow-hidden bg-white dark:bg-[#111114] border border-gray-100 dark:border-white/[0.06] hover:border-gray-200 dark:hover:border-white/[0.12] transition-all duration-500 hover:shadow-xl hover:shadow-black/[0.04] dark:hover:shadow-black/30"
     >
-      {/* ── Image Panel ── */}
       <div
         className={`relative w-full lg:w-[400px] xl:w-[440px] flex-shrink-0 min-h-[280px] lg:min-h-[300px] overflow-hidden bg-gray-50 dark:bg-[#0a0a0d] ${
           index % 2 === 1 ? "lg:order-last" : ""
         }`}
       >
-        {/* Background grid */}
         <div
           className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
           style={{
@@ -69,7 +67,6 @@ function ProjectCard({ project, index, inView }) {
           }}
         />
 
-        {/* Phone mockup — overflows top and bottom */}
         <div className="absolute inset-x-0 -top-6 -bottom-6 flex items-center justify-center px-6">
           <div className="relative w-[240px] h-[calc(100%+12px)] transition-transform duration-700 group-hover:scale-[1.08] group-hover:-translate-y-3">
             <Image
@@ -82,7 +79,6 @@ function ProjectCard({ project, index, inView }) {
           </div>
         </div>
 
-        {/* Category pill */}
         <div className="absolute top-4 left-4 z-10">
           <span
             className="px-3 py-1 bg-white dark:bg-white/[0.08] text-gray-700 dark:text-gray-300 text-[10px] font-bold tracking-[0.15em] uppercase border border-gray-200 dark:border-white/[0.08]"
@@ -92,21 +88,17 @@ function ProjectCard({ project, index, inView }) {
           </span>
         </div>
 
-        {/* Project number */}
         <div className="absolute bottom-4 right-5 font-heading font-extrabold text-gray-200/40 dark:text-white/[0.04] text-6xl leading-none select-none pointer-events-none">
           {String(project.id).padStart(2, "0")}
         </div>
 
-        {/* Corner accents on hover */}
         <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
           <div className="w-5 h-[1.5px] bg-orange-500 ml-auto" />
           <div className="w-[1.5px] h-5 bg-orange-500 ml-auto mt-[-1.5px]" />
         </div>
       </div>
 
-      {/* ── Text Panel ── */}
       <div className="flex-1 flex flex-col justify-center p-8 lg:p-11">
-        {/* Tags */}
         <div className="flex flex-wrap gap-1.5 mb-5">
           {project.tags.map((tag) => (
             <span
@@ -119,20 +111,16 @@ function ProjectCard({ project, index, inView }) {
           ))}
         </div>
 
-        {/* Title */}
         <h3 className="font-heading font-bold text-xl lg:text-[22px] text-gray-900 dark:text-white mb-3 leading-snug group-hover:text-orange-500 transition-colors duration-400 tracking-[-0.02em]">
           {project.title}
         </h3>
 
-        {/* Description */}
         <p className="text-[13px] sm:text-[14px] text-gray-500 dark:text-gray-400 leading-[1.7] mb-7 max-w-md">
           {project.description}
         </p>
 
-        {/* Divider */}
         <div className="w-full h-px bg-gray-100 dark:bg-white/[0.04] mb-6" />
 
-        {/* Actions */}
         <div className="flex items-center gap-4">
           <Link
             href={project.link}
@@ -153,7 +141,6 @@ function ProjectCard({ project, index, inView }) {
         </div>
       </div>
 
-      {/* Hover border accent — bottom */}
       <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-orange-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
     </div>
   );
@@ -161,7 +148,9 @@ function ProjectCard({ project, index, inView }) {
 
 export default function PortfolioSection() {
   const [inView, setInView] = useState(false);
+  const [current, setCurrent] = useState(0);
   const sectionRef = useRef(null);
+  const total = projects.length;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -173,6 +162,9 @@ export default function PortfolioSection() {
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
+
+  const prev = () => setCurrent((c) => (c - 1 + total) % total);
+  const next = () => setCurrent((c) => (c + 1) % total);
 
   const t = (delay) => ({
     transition: `all 0.8s cubic-bezier(.22,1,.36,1) ${delay}ms`,
@@ -186,7 +178,6 @@ export default function PortfolioSection() {
       id="portfolio"
       className="relative w-full bg-gray-50 dark:bg-[#09090b] py-20 lg:py-28 overflow-hidden"
     >
-      {/* BG decorations */}
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute -top-40 right-0 w-[400px] h-[400px] rounded-full opacity-[0.02]"
@@ -211,7 +202,6 @@ export default function PortfolioSection() {
       </div>
 
       <div className="relative z-10 max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-16">
-        {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-14 gap-6">
           <div>
             <div style={t(0)}>
@@ -270,16 +260,52 @@ export default function PortfolioSection() {
           </div>
         </div>
 
-        {/* Project cards */}
-        <div className="flex flex-col gap-5">
-          {projects.map((project, i) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              index={i}
-              inView={inView}
-            />
-          ))}
+        <div style={t(400)} className="relative">
+          <div className="overflow-hidden">
+            <div
+              className="flex transition-transform duration-700 ease-[cubic-bezier(.22,1,.36,1)]"
+              style={{ transform: `translateX(-${current * 100}%)` }}
+            >
+              {projects.map((project, i) => (
+                <div key={project.id} className="w-full flex-shrink-0">
+                  <ProjectCard project={project} index={i} inView={inView} />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between mt-6">
+            <div className="flex items-center gap-2">
+              {projects.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrent(i)}
+                  className={`transition-all duration-300 rounded-full ${
+                    i === current
+                      ? "w-6 h-[6px] bg-orange-500"
+                      : "w-[6px] h-[6px] bg-gray-300 dark:bg-white/20 hover:bg-orange-400 dark:hover:bg-orange-400"
+                  }`}
+                />
+              ))}
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={prev}
+                className="w-9 h-9 flex items-center justify-center border border-gray-200 dark:border-white/[0.08] bg-white dark:bg-[#111114] text-gray-700 dark:text-gray-300 hover:text-orange-500 hover:border-orange-500 transition-all duration-300"
+                style={{ borderRadius: "3px" }}
+              >
+                <FiChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={next}
+                className="w-9 h-9 flex items-center justify-center border border-gray-200 dark:border-white/[0.08] bg-white dark:bg-[#111114] text-gray-700 dark:text-gray-300 hover:text-orange-500 hover:border-orange-500 transition-all duration-300"
+                style={{ borderRadius: "3px" }}
+              >
+                <FiChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
