@@ -2,6 +2,7 @@ import "./globals.css";
 import { Space_Grotesk, Outfit, Fira_Code } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { ReduxProvider } from "@/components/providers/ReduxProvider";
+import { DataProvider } from "@/context/DataContext";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
@@ -50,7 +51,6 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
       className={`${outfit.variable} ${spaceGrotesk.variable} ${firaCode.variable}`}
     >
-      {/* suppressHydrationWarning on body prevents the script tag warning */}
       <body className="font-sans antialiased" suppressHydrationWarning>
         <ReduxProvider>
           <ThemeProvider
@@ -59,9 +59,11 @@ export default function RootLayout({ children }) {
             enableSystem={false}
             disableTransitionOnChange={false}
           >
-            <Navbar />
-            {children}
-            <Footer />
+            <DataProvider>
+              <Navbar />
+              {children}
+              <Footer />
+            </DataProvider>
           </ThemeProvider>
         </ReduxProvider>
       </body>

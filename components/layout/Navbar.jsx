@@ -30,7 +30,6 @@ export default function Navbar() {
   const isTeamPage = pathname === "/team";
   const isPortfolioPage = pathname === "/portfolio";
 
-
   useEffect(() => {
     if (!isHomePage) return;
 
@@ -83,7 +82,6 @@ export default function Navbar() {
                 : "py-2.5 bg-white/80 dark:bg-[#0c0c0f]/70 backdrop-blur-xl border border-white/60 dark:border-white/[0.04]"
             }`}
           >
-            {/* Logo */}
             <Link
               href="/"
               className="flex items-center gap-2 group relative z-10 shrink-0 cursor-pointer"
@@ -101,7 +99,6 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-0.5">
               {navLinks.map((link) => {
                 const active = isLinkActive(link);
@@ -128,14 +125,13 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* Right Section */}
             <div className="flex items-center gap-2">
               <div className="scale-[0.85] cursor-pointer">
                 <ThemeToggle />
               </div>
 
               <Link
-                href="/#contact"
+                href={isHomePage ? "#contact" : "/#contact"}
                 className="hidden md:flex items-center px-4 py-1.5 rounded-[4px] bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-[12px] font-bold transition-all duration-300 hover:bg-gray-800 dark:hover:bg-gray-100 hover:-translate-y-[1px] active:translate-y-0 cursor-pointer"
               >
                 Contact us

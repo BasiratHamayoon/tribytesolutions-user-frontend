@@ -1,4 +1,3 @@
-
 import AboutSection from "@/components/sections/home/AboutSection";
 import StatsSection from "@/components/sections/home/StatsSection";
 import PortfolioSection from "@/components/sections/home/PortfolioSection";

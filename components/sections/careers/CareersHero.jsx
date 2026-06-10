@@ -161,9 +161,10 @@ export default function CareersHero() {
                   View open roles
                   <FiArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform duration-300" />
                 </Link>
-                <Link href="#life" className="inline-flex items-center gap-2 px-5 py-2 rounded-[4px] border-[1.5px] border-orange-500/60 text-white text-[12.5px] font-bold transition-all duration-300 hover:border-orange-400 hover:bg-orange-500/10 hover:-translate-y-[1px] active:scale-[0.98] cursor-pointer">
-                  Life at TriByte
-                </Link>
+                <Link
+                  href="/#contact" className="inline-flex items-center gap-2 px-5 py-2 rounded-[4px] border-[1.5px] border-orange-500/60 text-white text-[12.5px] font-bold transition-all duration-300 hover:border-orange-400 hover:bg-orange-500/10 hover:-translate-y-[1px] active:scale-[0.98] cursor-pointer">
+              Start a Project
+              </Link>
               </div>
             </div>
           </div>

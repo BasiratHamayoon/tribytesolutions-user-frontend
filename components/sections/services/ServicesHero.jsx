@@ -281,29 +281,6 @@ export default function ServicesHero() {
                 </Link>
               </div>
             </div>
-
-            {/* Trust avatars */}
-            <div style={t(680)}>
-              <div className="mt-6 flex items-center justify-center gap-2.5">
-                <div className="flex -space-x-2">
-                  {["#f97316", "#3b82f6", "#10b981", "#8b5cf6"].map(
-                    (bg, i) => (
-                      <div
-                        key={i}
-                        className="w-6 h-6 rounded-full border-2 border-black/30 flex items-center justify-center text-[8px] font-bold text-white"
-                        style={{ background: bg }}
-                      >
-                        {String.fromCharCode(65 + i)}
-                      </div>
-                    )
-                  )}
-                </div>
-                <span className="text-[10px] text-white/35 font-medium">
-                  <span className="text-white/60 font-semibold">200+</span>{" "}
-                  businesses trust us
-                </span>
-              </div>
-            </div>
           </div>
         </div>
       </div>

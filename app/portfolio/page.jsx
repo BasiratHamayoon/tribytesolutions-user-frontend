@@ -16,7 +16,7 @@ export default function PortfolioPage() {
     <main className="relative min-h-screen overflow-hidden">
       <PortfolioHero />
       <PortfolioShowcase />
-      <PortfolioStats />
+      {/* <PortfolioStats /> */}
       <PortfolioProcess />
       <PortfolioTestimonials />
       <PortfolioCTA />

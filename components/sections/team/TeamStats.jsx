@@ -1,16 +1,12 @@
 "use client";
+
 import { useState, useEffect, useRef } from "react";
 import { FiUsers, FiGlobe, FiCode, FiAward } from "react-icons/fi";
 import ParticleBackground from "@/components/ui/ParticleBackground";
-
-const stats = [
-  { icon: FiUsers, value: "50+", label: "Team Members" },
-  { icon: FiGlobe, value: "15+", label: "Countries" },
-  { icon: FiCode, value: "30+", label: "Tech Skills" },
-  { icon: FiAward, value: "8+", label: "Avg Experience" },
-];
+import { useTeam } from "@/hooks/useTeam";
 
 export default function TeamStats() {
+  const { activeCount, departments, team, loading } = useTeam();
   const [inView, setInView] = useState(false);
   const ref = useRef(null);
 
@@ -29,8 +25,41 @@ export default function TeamStats() {
     transform: inView ? "translateY(0)" : "translateY(30px)",
   });
 
+  const safeDepartments = Array.isArray(departments) ? departments : [];
+  const safeTeam = Array.isArray(team) ? team : [];
+
+  const totalSkills = [
+    ...new Set(safeTeam.flatMap((m) => (Array.isArray(m.skills) ? m.skills : [])))
+  ].length;
+
+  const stats = [
+    {
+      icon: FiUsers,
+      value: activeCount > 0 ? `${activeCount}+` : "50+",
+      label: "Team Members",
+    },
+    {
+      icon: FiGlobe,
+      value: safeDepartments.length > 0 ? `${safeDepartments.length}+` : "15+",
+      label: "Departments",
+    },
+    {
+      icon: FiCode,
+      value: totalSkills > 0 ? `${totalSkills}+` : "30+",
+      label: "Tech Skills",
+    },
+    {
+      icon: FiAward,
+      value: "8+",
+      label: "Avg Experience",
+    },
+  ];
+
   return (
-    <section ref={ref} className="relative w-full bg-white dark:bg-[#09090b] py-16 overflow-hidden">
+    <section
+      ref={ref}
+      className="relative w-full bg-white dark:bg-[#09090b] py-16 overflow-hidden"
+    >
       <ParticleBackground />
 
       <div className="relative z-10 max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-16">
@@ -39,13 +68,27 @@ export default function TeamStats() {
             const Icon = stat.icon;
             return (
               <div key={i} style={t(i * 100 + 200)}>
-                <div className="group relative text-center p-6 bg-gray-50/50 dark:bg-white/[0.02] border border-gray-100 dark:border-white/[0.06] hover:border-orange-500/30 transition-all duration-400 cursor-default" style={{ borderRadius: "4px" }}>
+                <div
+                  className="group relative text-center p-6 bg-gray-50/50 dark:bg-white/[0.02] border border-gray-100 dark:border-white/[0.06] hover:border-orange-500/30 transition-all duration-400 cursor-default"
+                  style={{ borderRadius: "4px" }}
+                >
                   <div className="absolute top-0 left-0 right-0 h-[2px] bg-orange-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-                  <div className="w-10 h-10 mx-auto mb-3 bg-orange-500/10 flex items-center justify-center group-hover:bg-orange-500 transition-all duration-400" style={{ borderRadius: "4px" }}>
+                  <div
+                    className="w-10 h-10 mx-auto mb-3 bg-orange-500/10 flex items-center justify-center group-hover:bg-orange-500 transition-all duration-400"
+                    style={{ borderRadius: "4px" }}
+                  >
                     <Icon className="w-4 h-4 text-orange-500 group-hover:text-white transition-colors duration-400" />
                   </div>
-                  <div className="text-2xl font-heading font-bold text-gray-900 dark:text-white mb-1 tracking-tight">{stat.value}</div>
-                  <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">{stat.label}</div>
+                  <div className="text-2xl font-heading font-bold text-gray-900 dark:text-white mb-1 tracking-tight">
+                    {loading ? (
+                      <div className="h-6 w-12 bg-gray-200 dark:bg-white/[0.06] rounded mx-auto animate-pulse" />
+                    ) : (
+                      stat.value
+                    )}
+                  </div>
+                  <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
+                    {stat.label}
+                  </div>
                 </div>
               </div>
             );

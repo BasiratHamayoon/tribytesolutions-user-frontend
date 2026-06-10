@@ -5,7 +5,6 @@ import TeamLeaders from "@/components/sections/team/TeamLeaders";
 import TeamMembers from "@/components/sections/team/TeamMembers";
 import TeamStats from "@/components/sections/team/TeamStats";
 
-
 export const metadata = {
   title: "Our Team - TriByte Solutions",
   description:

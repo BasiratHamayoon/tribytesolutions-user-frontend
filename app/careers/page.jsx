@@ -4,7 +4,6 @@ import CareersOpenings from "@/components/sections/careers/CareersOpenings";
 import CareersPerks from "@/components/sections/careers/CareersPerks";
 import CareersProcess from "@/components/sections/careers/CareersProcess";
 
-
 export const metadata = {
   title: "Careers - TriByte Solutions",
   description:
